@@ -150,6 +150,7 @@ class Gcc5 < Formula
     args << "--enable-host-shared" if build.with?("jit") || build.with?("all-languages")
 
     args << "--enable-decimal-float=bid" if build.with? "decimal-bid"
+    exit
 
     # Ensure correct install names when linking against libgcc_s;
     # see discussion in https://github.com/Homebrew/homebrew/pull/34303
