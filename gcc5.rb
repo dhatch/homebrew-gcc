@@ -51,7 +51,7 @@ class Gcc5 < Formula
   option "with-jit", "Build the jit compiler"
   # enabling multilib on a host that can"t run 64-bit results in build failures
   option "without-multilib", "Build without multilib support" if MacOS.prefer_64_bit?
-  option "with-decimal-bid", "Enable decimal bid support"
+  option "without-decimal-bid", "Disable decimal bid support"
 
   depends_on "gmp"
   depends_on "libmpc"
