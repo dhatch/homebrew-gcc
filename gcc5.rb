@@ -229,15 +229,6 @@ __END__
 
  $(LIBGCCJIT_SONAME_SYMLINK): $(LIBGCCJIT_FILENAME)
 	ln -sf $(LIBGCCJIT_FILENAME) $(LIBGCCJIT_SONAME_SYMLINK)
-
-@@ -577,6 +577,7 @@ endif
- ifeq ($(decimal_float),yes)
-
-  # If $DFP_ENABLE is set, then we want all data type sizes.
- # +DFP_ENABLE = 1
- #  ifneq ($(DFP_ENABLE),)
- #   D32PBIT = 1
- #    D64PBIT = 1
 --- a/libgcc/Makefile.in
 +++ b/libgcc/Makefile.in
 @@ -577,6 +577,7 @@ endif
