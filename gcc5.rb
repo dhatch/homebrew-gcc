@@ -78,6 +78,8 @@ class Gcc5 < Formula
 
   # Fix for libgccjit.so linkage on Darwin
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64089
+  #
+  # Fix for libdecnumber linkage on Darwin.
   patch :DATA
 
   def install
@@ -149,7 +151,11 @@ class Gcc5 < Formula
 
     args << "--enable-host-shared" if build.with?("jit") || build.with?("all-languages")
 
-    args << "--enable-decimal-float=bid" if build.with? "decimal-bid"
+    if build.without?("decimal-bid")
+      args << "--disable-decimal-float"
+    else
+      args << "--enable-decimal-float=bid"
+    end
     exit
 
     # Ensure correct install names when linking against libgcc_s;
@@ -223,3 +229,22 @@ __END__
 
  $(LIBGCCJIT_SONAME_SYMLINK): $(LIBGCCJIT_FILENAME)
 	ln -sf $(LIBGCCJIT_FILENAME) $(LIBGCCJIT_SONAME_SYMLINK)
+
+@@ -577,6 +577,7 @@ endif
+ ifeq ($(decimal_float),yes)
+
+  # If $DFP_ENABLE is set, then we want all data type sizes.
+ # +DFP_ENABLE = 1
+ #  ifneq ($(DFP_ENABLE),)
+ #   D32PBIT = 1
+ #    D64PBIT = 1
+--- a/libgcc/Makefile.in
++++ b/libgcc/Makefile.in
+@@ -577,6 +577,7 @@ endif
+ ifeq ($(decimal_float),yes)
+ 
+ # If $DFP_ENABLE is set, then we want all data type sizes.
++DFP_ENABLE = 1
+ ifneq ($(DFP_ENABLE),)
+ D32PBIT = 1
+ D64PBIT = 1
