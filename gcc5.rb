@@ -156,7 +156,6 @@ class Gcc5 < Formula
     else
       args << "--enable-decimal-float=bid"
     end
-    exit
 
     # Ensure correct install names when linking against libgcc_s;
     # see discussion in https://github.com/Homebrew/homebrew/pull/34303
